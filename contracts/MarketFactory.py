@@ -24,8 +24,9 @@ class MarketFactory(gl.Contract):
         salt_nonce = u256(len(self.markets) + 1)
         
         # Deploy Market contract
+        code_bytes = self.market_code.encode('utf-8') if isinstance(self.market_code, str) else self.market_code
         child_address = gl.deploy_contract(
-            code=self.market_code,
+            code=code_bytes,
             args=[claim, close_time, urls, self.reputation_address, gl.message.sender_address, bond_amount],
             salt_nonce=salt_nonce,
             on='finalized'
