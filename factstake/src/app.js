@@ -83,7 +83,7 @@ window.addEventListener('DOMContentLoaded', () => {
   setupEventListeners();
   
   // Try to load factory address from storage or default to deployed contract address
-  const defaultFactory = '0xc11678bBCb76652031b4017a581123739495e17D';
+  const defaultFactory = '0xF3bA3AF88D3BA3E8Fb892d7B454B08A7d35A4626';
   const storedFactory = localStorage.getItem('FACTSTAKE_FACTORY_ADDR') || defaultFactory;
   
   document.getElementById('factory-address-input').value = storedFactory;
