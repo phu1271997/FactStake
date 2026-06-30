@@ -102,7 +102,15 @@ function initWallet() {
     document.getElementById('wallet-address').textContent = `${currentAccount.address.slice(0, 6)}...${currentAccount.address.slice(-4)}`;
   } catch (e) {
     console.error("Wallet init failed", e);
-    showNotification("Failed to initialize wallet", "error");
+    showNotification("Import failed! Copy your PRIVATE KEY (key icon in Studio), not the wallet address.", "error");
+    // Revert to default funded key so the app doesn't break
+    localStorage.setItem('FACTSTAKE_PRIVATE_KEY_V3', defaultKey);
+    try {
+      currentAccount = createAccount(defaultKey);
+      document.getElementById('wallet-address').textContent = `${currentAccount.address.slice(0, 6)}...${currentAccount.address.slice(-4)}`;
+    } catch (revertErr) {
+      console.error("Revert failed", revertErr);
+    }
   }
 }
 
