@@ -1,0 +1,20 @@
+# Node dependencies
+node_modules/
+dist/
+build/
+.env
+.env.local
+.env.production
+.env.development
+
+# Python/Pytest
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Testing output & artifacts
+artifacts/
+test_output.txt
+
+# OS metadata
+.DS_Store

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FactStake — Decentralized Self-Resolving Prediction Markets on GenLayer</title>
+  <meta name="description" content="Decentralized prediction markets that resolve themselves using GenLayer's on-chain Intelligent Contracts reading the live web and reasoning with LLMs.">
+  <link rel="stylesheet" href="/src/index.css">
+</head>
+<body>
+  <div class="app-container">
+    
+    <!-- Top Header -->
+    <header class="app-header">
+      <div class="logo-container">
+        <div class="logo-icon">F</div>
+        <h1 class="logo-text">FactStake</h1>
+      </div>
+      
+      <div style="display: flex; align-items: center; gap: 1rem;">
+        <select id="chain-select" class="form-input" style="width: auto; padding: 0.5rem 1rem;">
+          <option value="studionet" selected>GenLayer Studio</option>
+          <option value="simulator">GenLayer Simulator</option>
+          <option value="asimov">Asimov Testnet</option>
+          <option value="bradbury">Bradbury Testnet</option>
+        </select>
+        
+        <button id="btn-import-wallet" class="connect-wallet-btn">
+          Connect Wallet (<span id="wallet-address">Connecting...</span>)
+        </button>
+      </div>
+    </header>
+
+    <!-- Dashboard layout -->
+    <main class="dashboard-grid">
+      
+      <!-- Left side: Configuration, Creation & Listing -->
+      <div style="display: flex; flex-direction: column; gap: 2rem;">
+        
+        <!-- Factory Address Setup -->
+        <section class="panel">
+          <h2 class="panel-title">Contract Settings</h2>
+          <div class="form-group" style="margin-bottom: 0.5rem;">
+            <label for="factory-address-input">MarketFactory Address</label>
+            <div style="display: flex; gap: 0.5rem;">
+              <input type="text" id="factory-address-input" class="form-input" placeholder="0x...">
+              <button id="btn-save-factory" class="primary-btn" style="margin-top: 0; width: auto; padding: 0 1.5rem;">Save</button>
+            </div>
+          </div>
+          <div class="form-group" style="margin-bottom: 0;">
+            <label for="pk-display">Your Wallet Private Key (Use for funding/debug)</label>
+            <input type="text" id="pk-display" class="form-input" readonly style="font-size: 0.8rem; background: rgba(0,0,0,0.25);">
+          </div>
+        </section>
+
+        <!-- Market Creator Form -->
+        <section class="panel">
+          <h2 class="panel-title">Create Prediction Market</h2>
+          <form id="create-market-form">
+            <div class="form-group">
+              <label for="claim-input">Factual Claim (e.g. Did company X lay off >1000 employees?)</label>
+              <input type="text" id="claim-input" class="form-input" placeholder="Enter claim description" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="delay-input">Staking Window (Duration in seconds before close)</label>
+              <input type="number" id="delay-input" class="form-input" placeholder="e.g. 600" value="600" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="urls-input">Web Source URLs (One per line for LLM verification)</label>
+              <textarea id="urls-input" class="form-input" rows="3" placeholder="https://news.example.com/layoffs&#10;https://blog.example.com/company-x" required></textarea>
+            </div>
+            
+            <div class="form-group">
+              <label for="bond-input">Appeal Bond Size (GEN)</label>
+              <input type="number" id="bond-input" class="form-input" placeholder="e.g. 10" value="10" required>
+            </div>
+            
+            <button type="submit" id="btn-create-market" class="primary-btn">Create Market</button>
+          </form>
+        </section>
+
+        <!-- Markets List -->
+        <section class="panel">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+            <h2 class="panel-title" style="margin-bottom: 0;">Active Markets</h2>
+            <button id="btn-refresh-markets" class="add-btn" style="border-style: solid; padding: 0.4rem 1rem;">Refresh</button>
+          </div>
+          <div id="markets-list" class="market-list">
+            <div class="empty-state">No markets loaded. Enter factory address to fetch.</div>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- Right side: Selected Market Details & Interaction -->
+      <section class="panel" style="min-height: 400px; display: flex; flex-direction: column;">
+        <h2 class="panel-title">Market Resolution Panel</h2>
+        <div id="active-market-details" style="flex: 1; display: flex; flex-direction: column; justify-content: center;">
+          <div class="no-market-selected">
+            Select a prediction market from the list on the left to view metrics, stake GEN, and participate in resolution or appeals.
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+  </div>
+
+  <!-- JavaScript script loading -->
+  <script type="module" src="/src/app.js"></script>
+</body>
+</html>
