@@ -154,7 +154,42 @@ function setupEventListeners() {
   document.getElementById('btn-stake-yes').addEventListener('click', () => stake(true));
   document.getElementById('btn-stake-no').addEventListener('click', () => stake(false));
 
-  // Action buttons
+  // Wallet modal listeners
+  const statusBadge = document.querySelector('.wallet-status-badge');
+  const walletModal = document.getElementById('wallet-modal');
+  const closeWalletModalBtn = document.getElementById('btn-close-wallet-modal');
+  const modalImportBtn = document.getElementById('btn-modal-import');
+
+  statusBadge.addEventListener('click', () => {
+    document.getElementById('modal-wallet-address').textContent = currentAccount ? currentAccount.address : 'Not connected';
+    document.getElementById('modal-pk-input').value = '';
+    walletModal.style.display = 'flex';
+    setTimeout(() => walletModal.classList.add('active'), 10);
+  });
+
+  const closeWalletModal = () => {
+    walletModal.classList.remove('active');
+    setTimeout(() => walletModal.style.display = 'none', 300);
+  };
+
+  closeWalletModalBtn.addEventListener('click', closeWalletModal);
+  walletModal.addEventListener('click', (e) => {
+    if (e.target === walletModal) closeWalletModal();
+  });
+
+  modalImportBtn.addEventListener('click', () => {
+    const pk = document.getElementById('modal-pk-input').value.trim();
+    if (pk) {
+      localStorage.setItem('FACTSTAKE_PRIVATE_KEY_V3', pk);
+      initWallet();
+      connectChain();
+      closeWalletModal();
+      showNotification("Wallet imported successfully!");
+    } else {
+      showNotification("Please enter a private key first", "warning");
+    }
+  });
+
   document.getElementById('btn-resolve').addEventListener('click', resolveMarket);
   document.getElementById('btn-appeal').addEventListener('click', appealMarket);
   document.getElementById('btn-resolve-appeal').addEventListener('click', resolveAppealMarket);

@@ -105,6 +105,31 @@
 
   </div>
 
+  <!-- Wallet Details & Import Modal -->
+  <div id="wallet-modal" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Wallet Details</h3>
+        <button id="btn-close-wallet-modal" class="close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="wallet-info-card">
+          <div class="info-label">Active Address</div>
+          <div class="info-value" id="modal-wallet-address">0x...</div>
+        </div>
+        
+        <div class="form-group" style="margin-top: 1.5rem; margin-bottom: 0;">
+          <label for="modal-pk-input">Import Custom Account (Paste Private Key)</label>
+          <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
+            <input type="password" id="modal-pk-input" class="form-input" placeholder="0x..." style="font-size: 0.8rem;">
+            <button id="btn-modal-import" class="primary-btn" style="margin-top: 0; width: auto; padding: 0 1.5rem;">Import</button>
+          </div>
+          <small class="form-help">Paste the private key of your funded account (e.g., from GenLayer Studio) to sign transactions using your own wallet.</small>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- JavaScript script loading -->
   <script type="module" src="/src/app.js"></script>
 </body>
