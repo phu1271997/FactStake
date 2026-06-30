@@ -84,25 +84,22 @@ window.addEventListener('DOMContentLoaded', () => {
   
   // Try to load factory address from storage or default to deployed contract address
   const defaultFactory = '0xF3bA3AF88D3BA3E8Fb892d7B454B08A7d35A4626';
-  const storedFactory = localStorage.getItem('FACTSTAKE_FACTORY_ADDR') || defaultFactory;
+  const storedFactory = localStorage.getItem('FACTSTAKE_FACTORY_ADDR_V3') || defaultFactory;
   
   document.getElementById('factory-address-input').value = storedFactory;
   factoryAddress = storedFactory;
   loadMarkets();
 });
 
-// Setup wallet account (generate or read from localStorage)
+// Setup wallet account (default to pre-funded simulator account or read from localStorage)
 function initWallet() {
-  let storedKey = localStorage.getItem('FACTSTAKE_PRIVATE_KEY');
-  if (!storedKey) {
-    const acc = createAccount();
-    storedKey = acc.privateKey;
-    localStorage.setItem('FACTSTAKE_PRIVATE_KEY', storedKey);
-  }
+  const defaultKey = '0x4f3edf983ac636a65a842ce7c78d9aa706d3b113bce9c46f30d7e22d87b90203';
+  let storedKey = localStorage.getItem('FACTSTAKE_PRIVATE_KEY_V3') || defaultKey;
+  localStorage.setItem('FACTSTAKE_PRIVATE_KEY_V3', storedKey);
+
   try {
     currentAccount = createAccount(storedKey);
     document.getElementById('wallet-address').textContent = `${currentAccount.address.slice(0, 6)}...${currentAccount.address.slice(-4)}`;
-    document.getElementById('pk-display').value = storedKey;
   } catch (e) {
     console.error("Wallet init failed", e);
     showNotification("Failed to initialize wallet", "error");
@@ -140,21 +137,9 @@ function setupEventListeners() {
     const val = document.getElementById('factory-address-input').value.trim();
     if (val) {
       factoryAddress = val;
-      localStorage.setItem('FACTSTAKE_FACTORY_ADDR', val);
+      localStorage.setItem('FACTSTAKE_FACTORY_ADDR_V3', val);
       showNotification("Factory address updated!");
       loadMarkets();
-    }
-  });
-
-  document.getElementById('btn-update-pk').addEventListener('click', () => {
-    const pk = document.getElementById('pk-display').value.trim();
-    if (pk) {
-      localStorage.setItem('FACTSTAKE_PRIVATE_KEY', pk);
-      initWallet();
-      connectChain();
-      showNotification("Wallet imported successfully!");
-    } else {
-      showNotification("Please enter a private key first", "warning");
     }
   });
 
