@@ -146,13 +146,15 @@ function setupEventListeners() {
     }
   });
 
-  document.getElementById('btn-import-wallet').addEventListener('click', () => {
-    const pk = prompt("Paste your private key (0x...):");
+  document.getElementById('btn-update-pk').addEventListener('click', () => {
+    const pk = document.getElementById('pk-display').value.trim();
     if (pk) {
       localStorage.setItem('FACTSTAKE_PRIVATE_KEY', pk);
       initWallet();
       connectChain();
       showNotification("Wallet imported successfully!");
+    } else {
+      showNotification("Please enter a private key first", "warning");
     }
   });
 

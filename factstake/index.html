@@ -25,9 +25,10 @@
           <option value="bradbury">Bradbury Testnet</option>
         </select>
         
-        <button id="btn-import-wallet" class="connect-wallet-btn">
-          Connect Wallet (<span id="wallet-address">Connecting...</span>)
-        </button>
+        <div class="wallet-status-badge">
+          <span class="status-dot"></span>
+          <span id="wallet-address">Connecting...</span>
+        </div>
       </div>
     </header>
 
@@ -40,7 +41,7 @@
         <!-- Factory Address Setup -->
         <section class="panel">
           <h2 class="panel-title">Contract Settings</h2>
-          <div class="form-group" style="margin-bottom: 0.5rem;">
+          <div class="form-group" style="margin-bottom: 0.8rem;">
             <label for="factory-address-input">MarketFactory Address</label>
             <div style="display: flex; gap: 0.5rem;">
               <input type="text" id="factory-address-input" class="form-input" placeholder="0x...">
@@ -48,8 +49,11 @@
             </div>
           </div>
           <div class="form-group" style="margin-bottom: 0;">
-            <label for="pk-display">Your Wallet Private Key (Use for funding/debug)</label>
-            <input type="text" id="pk-display" class="form-input" readonly style="font-size: 0.8rem; background: rgba(0,0,0,0.25);">
+            <label for="pk-display">Your Wallet Private Key (Paste to import funded account)</label>
+            <div style="display: flex; gap: 0.5rem;">
+              <input type="password" id="pk-display" class="form-input" style="font-size: 0.8rem; background: rgba(0,0,0,0.25);" placeholder="0x...">
+              <button id="btn-update-pk" class="primary-btn" style="margin-top: 0; width: auto; padding: 0 1.5rem;">Import</button>
+            </div>
           </div>
         </section>
 

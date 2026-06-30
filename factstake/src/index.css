@@ -93,22 +93,26 @@ h1, h2, h3, h4 {
   -webkit-text-fill-color: transparent;
 }
 
-.connect-wallet-btn {
-  background: var(--grad-cyan-blue);
+.wallet-status-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(6, 182, 212, 0.1);
+  border: 1px solid rgba(6, 182, 212, 0.25);
   color: #fff;
-  border: none;
-  padding: 0.75rem 1.5rem;
+  padding: 0.6rem 1.2rem;
   border-radius: 0.75rem;
   font-family: var(--font-title);
   font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 4px 12px rgba(6, 182, 212, 0.15);
+  font-size: 0.95rem;
 }
 
-.connect-wallet-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(6, 182, 212, 0.3);
+.status-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #10b981;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #10b981;
 }
 
 /* Dashboard Grid */
